@@ -1,0 +1,12 @@
+apiVersion: instancetype.kubevirt.io/v1beta1
+kind: VirtualMachineClusterInstancetype
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"instancetype.kubevirt.io/v1beta1","kind":"VirtualMachineClusterInstancetype","metadata":{"annotations":{},"name":"thinknyx.small"},"spec":{"cpu":{"guest":1},"memory":{"guest":"256Mi"}}}
+  name: thinknyx.small
+spec:
+  cpu:
+    guest: 1
+  memory:
+    guest: 256Mi

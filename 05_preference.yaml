@@ -1,0 +1,10 @@
+apiVersion: instancetype.kubevirt.io/v1beta1
+kind: VirtualMachineClusterPreference
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"instancetype.kubevirt.io/v1beta1","kind":"VirtualMachineClusterPreference","metadata":{"annotations":{},"name":"thinknyx.linux"},"spec":{"cpu":{"preferredCPUTopology":"sockets"}}}
+  name: thinknyx.linux
+spec:
+  cpu:
+    preferredCPUTopology: sockets

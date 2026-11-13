@@ -1,0 +1,36 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: demo11vm
+  labels:
+    app:  demo11app
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        app: demo11app
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: rootdisk
+            disk: 
+              bus: virtio
+          - name: containerinitdisk
+            disk:
+              bus: virtio
+        resources:
+          requests:
+            memory: 512M
+      volumes:
+      - name: rootdisk
+        persistentVolumeClaim: 
+          claimName: demo11dv
+      - name: containerinitdisk
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            password: fedora
+            chpasswd:
+              expire: False

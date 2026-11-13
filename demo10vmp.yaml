@@ -1,0 +1,45 @@
+apiVersion: pool.kubevirt.io/v1beta1
+kind: VirtualMachinePool
+metadata:
+  name: demo10vmp
+  labels:
+    app: demo10app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo10app
+  virtualMachineTemplate:
+    metadata:
+     labels:
+       app: demo10app
+    spec:
+      runStrategy: Always
+      template:
+        metadata:
+          labels:
+            app: demo10app
+        spec:
+          domain:
+            devices:
+              disks:
+              - name: containerdisk
+                disk: 
+                  bus: virtio
+              - name: containerinitdisk
+                disk:
+                  bus: virtio
+            resources:
+              requests:
+                memory: 512M
+          volumes:
+          - name: containerdisk
+            containerDisk: 
+              image: kubevirt/fedora-cloud-container-disk-demo
+          - name: containerinitdisk
+            cloudInitNoCloud:
+              userData: |
+                #cloud-config
+                password: fedora
+                chpasswd:
+                  expire: False

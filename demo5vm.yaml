@@ -1,0 +1,32 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","metadata":{"annotations":{},"name":"demo5vm","namespace":"default"},"spec":{"instancetype":{"name":"thinknyx.small"},"preference":{"name":"thinknyx.linux"},"runStrategy":"Always","template":{"metadata":{},"spec":{"domain":{"devices":{},"resources":{}},"terminationGracePeriodSeconds":180,"volumes":[{"containerDisk":{"image":"kubevirt/fedora-cloud-container-disk-demo:latest"},"name":"demo5vm-containerdisk-0"},{"cloudInitNoCloud":{"userData":"#cloud-config\npassword: yogesh123\nchpasswd: { expire: False }"},"name":"cloudinitdisk"}]}}},"status":{}}
+  name: demo5vm
+  namespace: default
+spec:
+  instancetype:
+    name: thinknyx.small
+  preference:
+    name: thinknyx.linux
+  runStrategy: Always
+  template:
+    metadata: {}
+    spec:
+      domain:
+        devices: {}
+        resources: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+      - containerDisk:
+          image: kubevirt/fedora-cloud-container-disk-demo:latest
+        name: demo5vm-containerdisk-0
+      - cloudInitNoCloud:
+          userData: |-
+            #cloud-config
+            password: yogesh123
+            chpasswd: { expire: False }
+        name: cloudinitdisk
+status: {}

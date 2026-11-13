@@ -1,0 +1,32 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: demo3vm
+  labels:
+    app:  demo3app
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        app: demo3app
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: containerdisk
+            disk: 
+              bus: virtio
+          - name: containerinitdisk
+            disk:
+              bus: virtio
+        resources:
+          requests:
+            memory: 512M
+      volumes:
+      - name: containerdisk
+        containerDisk: 
+          image: kubevirt/fedora-cloud-container-disk-demo
+      - name: containerinitdisk
+        cloudInitNoCloud:
+          userDataBase64: I2Nsb3VkLWNvbmZpZwpwYXNzd29yZDogZmVkb3JhCmNocGFzc3dkOgogIGV4cGlyZTogRmFsc2UK

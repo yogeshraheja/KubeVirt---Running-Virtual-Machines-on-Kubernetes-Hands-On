@@ -1,0 +1,39 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstanceReplicaSet
+metadata:
+  name: demo9vmirs
+  labels:
+    app: demo9app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo9app
+  template:
+    metadata:
+      labels:
+        app: demo9app
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: containerdisk
+            disk: 
+              bus: virtio
+          - name: containerinitdisk
+            disk:
+              bus: virtio
+        resources:
+          requests:
+            memory: 512M
+      volumes:
+      - name: containerdisk
+        containerDisk: 
+          image: kubevirt/fedora-cloud-container-disk-demo
+      - name: containerinitdisk
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            password: fedora
+            chpasswd:
+              expire: False

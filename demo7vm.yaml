@@ -1,0 +1,37 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: demo7vm
+  labels:
+    app:  demo7app
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        app: demo7app
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: containerdisk
+            disk: 
+              bus: virtio
+          - name: containerinitdisk
+            disk:
+              bus: virtio
+        resources:
+          requests:
+            memory: 512M
+      volumes:
+      - name: containerdisk
+        containerDisk: 
+          image: kubevirt/fedora-cloud-container-disk-demo
+      - name: containerinitdisk
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            users:
+              - name: user1
+                ssh_authorized_keys: 
+                  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRKRw4qWy0rGjKZd9WLGBIzBFh/1Q9zTkdzuycIU/OaOs8XZ5cdhgfD3T5hlwgo7G8z1XDtImxoTWSMyKDOknl3yVlVUhcn0h0uqOlsFM8xbXxEDJgIndlSt/Yj6p/k5J+Y/beUFMvHOuPIFJr+YiSo2o60Vo4ws7BekOhJz8MbNoNfFaY6Y2vnz0ep2LTY+gBuS4RGh097Ql2QMoCCF+aPMB2yJskgUqohyy6GdU5bQ/1Cmkg/2hLXWoUNjjUTh47lhAezjNHpBp4diO5OrJt2cJ+yRxgQ4RhLqJkJmZt16o2UzHzXTqM3bu9DZvK4h5lw1aDnoMmmmYcwilvnlpwZ8aWHfPeCsIq9uRjbtn0YoGjPqbvYzWwvFY8FQJUBqf7TkL4rLy06sdGGt2AGTA6FQHLPq657BNy36QnAi/RX4R7EoX7B6MtfdLSIWmU6r8JWEAzWjIPvDvbV8ZbCnCt+puSgCq8DqQEP2/POxxkCMba9pTX7rSrSpo9BlqvZx0= user1@ThinknyxMacBook.lan

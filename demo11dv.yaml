@@ -1,0 +1,17 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: demo11dv
+spec:
+  source:
+    http:
+      url: https://cloud-images.ubuntu.com/minimal/releases/noble/release/ubuntu-24.04-minimal-cloudimg-amd64.img
+
+  storage:
+    accessModes:
+      - ReadWriteMany
+    resources:
+      requests:
+        storage: "10Gi"
+    storageClassName: nfs-client
+

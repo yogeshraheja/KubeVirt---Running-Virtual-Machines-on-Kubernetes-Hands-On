@@ -1,0 +1,26 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: demo1vm
+  labels:
+    app:  demo1app
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        app: demo1app
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: containerdisk
+            disk: 
+              bus: virtio
+        resources:
+          requests:
+            memory: 512M
+      volumes:
+      - name: containerdisk
+        containerDisk: 
+          image: kubevirt/cirros-registry-disk-demo 
